@@ -1,26 +1,99 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-cream: #fbf7f0;
+  --color-cream-dark: #f2ead9;
+  --color-ivory: #f7f1e3;
+  --color-teal: #1f5858;
+  --color-teal-deep: #0f3b3b;
+  --color-teal-soft: #3a6f6f;
+  --color-olive: #8a9a5b;
+  --color-olive-dark: #6d7d43;
+  --color-sage: #c7d2a7;
+  --color-terracotta: #c0562d;
+  --color-gold: #b78a3a;
+  --color-ink: #1a2020;
+  --color-ink-soft: #3a4a4a;
+
+  --font-display: var(--font-display);
+  --font-italic: var(--font-italic);
+  --font-sans: var(--font-sans);
+
+  --shadow-soft: 0 20px 60px -30px rgba(15, 59, 59, 0.25);
+  --shadow-card: 0 30px 80px -40px rgba(15, 59, 59, 0.35);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: light;
+  }
+
+  html {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(1200px 600px at 110% -10%, rgba(199, 210, 167, 0.35), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(31, 88, 88, 0.08), transparent 55%),
+      var(--color-cream);
+    min-height: 100dvh;
+  }
+
+  h1, h2, h3, .display {
+    font-family: var(--font-display), serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .font-italic-display {
+    font-family: var(--font-italic), serif;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  ::selection {
+    background: var(--color-olive);
+    color: var(--color-cream);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  .divider-leaf {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-olive-dark);
+  }
+  .divider-leaf::before,
+  .divider-leaf::after {
+    content: "";
+    display: block;
+    width: 2.5rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+
+  .grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 }
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
